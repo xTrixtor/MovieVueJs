@@ -14,10 +14,10 @@
             <button class="btn btn-primary rounded-lg px-6 hover:-translate-y-2 duration-300 hover:bg-slate-600"
                 @click="handleRegisterClick">Register</button>
         </div>
-        <div v-if="msg" class="text-green-600 py-3 text-lg text-center">
+        <div v-if="msg" class="text-green-600 py-1 text-lg text-center">
             {{msg}}
         </div>
-        <div v-if="errorMsg" class="text-red-600 py-3 text-lg text-center">
+        <div v-if="errorMsg" class="text-red-600 py-1 text-lg text-center">
             {{errorMsg}}
         </div>
     </div>
@@ -41,7 +41,7 @@ export default {
                 await axios
                     .post("http://localhost:5238/api/Register", { username: this.username, password: this.password })
                     .then((response) => {
-                        console.log(response.data);
+                        this.errorMsg = "";
                         this.msg = response.data;
                     });
 

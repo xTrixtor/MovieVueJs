@@ -1,6 +1,6 @@
 <template>
     <div
-        class="card w-96 h-[350px] bg-base-100 shadow-xl border-2 my-3 fixed top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] ">
+        class="card w-96 h-[400px] bg-base-100 shadow-xl border-2 my-3 fixed top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] ">
         <div class="flex flex-col w-full h-full justify-center items-center">
             <div class="card-body py-3 flex justify-between">
                 <h2 class="card-title justify-center my-3">Login</h2>
@@ -14,8 +14,12 @@
                 <div class="flex justify-center">
                     <router-link to="/register">Register Now</router-link>
                 </div>
+                <div class="flex justify-center">
+            <p class="text-center hover:underline cursor-pointer" @click="handleForgottenClick">Forgot Password?</p>
+        </div>
             </div>
         </div>
+        
         <div class="flex w-full justify-center my-3">
             <button class="btn btn-primary rounded-lg px-6 hover:-translate-y-2 duration-300 hover:bg-slate-600"
                 @click="handleLogin">Login</button>
@@ -23,13 +27,17 @@
         <div class="flex justify-center" v-if="loading">
             <img src="../assets/loading.svg" class="w-10 pb-3 invert">
         </div>
-        <div v-if="errorMsg" class="text-red-600 py-3 text-lg text-center">
+        <div v-if="true" class="text-red-600 text-lg text-center">
             {{errorMsg}}
         </div>
+    </div>
+    <div v-if="forgottenFormVisible">
+        <ForgottenForm/>
     </div>
 </template>
 
 <script>
+import ForgottenForm from "../components/ForgottenForm.vue"
 import axios from "axios"
 export default {
     data() {
@@ -37,7 +45,8 @@ export default {
             username: "",
             password: "",
             errorMsg: "",
-            loading: false
+            loading: false,
+            forgottenFormVisible: false,
         }
     },
     methods: {
@@ -49,8 +58,12 @@ export default {
                 await axios
                     .post("http://localhost:5238/api/Login", { username: "guest", password: "guest" })
                     .then((response) => {
-                        JWTToken = response.data;
+                        console.log(response.data);
+                        JWTToken = response.data.jwtToken;
+                        const userID = response.data.userID;
+                        sessionStorage.setItem("userID", userID)
                         sessionStorage.setItem("jwtToken", JWTToken);
+                        alert(response.data.response)
                     });
                 window.location.href = 'http://127.0.0.1:5173/movies';
 
@@ -63,13 +76,15 @@ export default {
             this.loading = true;
             this.errorMsg = "";
             let JWTToken = "";
-            console.log(this.username +  " " + this.password)
             try {
                 await axios
-                    .post("http://localhost:5238/api/Login", { username: this.username, password: this.password})
+                    .post("http://localhost:5238/api/Login", { username: this.username, password: this.password })
                     .then((response) => {
-                        JWTToken = response.data;
+                        JWTToken = response.data.jwtToken;
+                        const userID = response.data.userID;
+                        sessionStorage.setItem("userID", userID)
                         sessionStorage.setItem("jwtToken", JWTToken);
+                        alert(response.data.response)
                     });
                 window.location.href = 'http://127.0.0.1:5173/movies';
 
@@ -82,8 +97,12 @@ export default {
                 this.errorMsg = err.response.data;
                 this.loading = false;
             }
-        }
-    }
+        },
+        async handleForgottenClick() {
+            this.forgottenFormVisible = !this.forgottenFormVisible;
+        },
+    },
+    components: { ForgottenForm }
 }
 </script>
 

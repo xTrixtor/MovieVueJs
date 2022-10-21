@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Login from "../components/Login.vue"
 import Movies from "../components/Movies.vue"
 import Register from "../components/RegisterCard.vue"
+import ResetPassword from "../components/ResetPassword.vue"
 const routes = [
   {
     path: "/",
@@ -18,6 +19,12 @@ const routes = [
     name: "Movies",
     component: Movies,
   },
+  {
+    path:"/ResetPassword/:resetCode",
+    name:"ResetPassword",
+    component: ResetPassword,
+    props:true
+  }
 ];
 
 const router = createRouter({

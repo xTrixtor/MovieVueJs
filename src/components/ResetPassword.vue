@@ -89,7 +89,7 @@ export default {
       try {
         console.log(this.password);
         await axios
-          .post("http://localhost:5238/api/Reset/CreateNewPassword", {
+          .post("https://movieapi.boehnern.de/api/Reset/CreateNewPassword", {
             ResetCode: resetCode,
             Username: this.username,
             NewPassword: this.password,

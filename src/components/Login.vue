@@ -36,7 +36,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import ForgottenForm from "../components/ForgottenForm.vue"
 import axios from "axios"
 export default {
@@ -56,7 +56,7 @@ export default {
             let JWTToken = "";
             try {
                 await axios
-                    .post("http://localhost:5238/api/Login", { username: "guest", password: "guest" })
+                    .post("https://movieapi.boehnern.de/api/login", { username: "guest", password: "guest" })
                     .then((response) => {
                         console.log(response.data);
                         JWTToken = response.data.jwtToken;
@@ -78,7 +78,7 @@ export default {
             let JWTToken = "";
             try {
                 await axios
-                    .post("http://localhost:5238/api/Login", { username: this.username, password: this.password })
+                    .post("https://movieapi.boehnern.de/api/Login", { username: this.username, password: this.password })
                     .then((response) => {
                         JWTToken = response.data.jwtToken;
                         const userID = response.data.userID;

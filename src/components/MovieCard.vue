@@ -44,7 +44,7 @@ export default {
             }
             try{
                 await axios
-                .get("http://localhost:5238/api/Movie/FindMovie", requestConfig)
+                .get("https://movieapi.boehnern.de/api/Movie/FindMovie", requestConfig)
                 .then((response) => {
                     this.selectedMovie = response.data;
                     this.openModal = true;

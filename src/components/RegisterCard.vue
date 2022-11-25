@@ -39,7 +39,7 @@ export default {
         async handleRegisterClick() {
             try {
                 await axios
-                    .post("http://localhost:5238/api/Register", { username: this.username, password: this.password })
+                    .post("https://movieapi.boehnern.de/api/Register", { username: this.username, password: this.password })
                     .then((response) => {
                         this.errorMsg = "";
                         this.msg = response.data;

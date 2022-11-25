@@ -24,7 +24,7 @@ export default {
         };
         try {
             await axios
-                .get("http://localhost:5238/api/Movie/GetHighestVotedMovies", requestConfig)
+                .get("https://myawesomewebapi.boehnern.de/api/Movie/GetHighestVotedMovies", requestConfig)
                 .then((response) => {
                     this.topMovies = response.data;
                 })
@@ -42,7 +42,7 @@ export default {
         }
         try {
             await axios
-                .get("http://localhost:5238/api/Movie/GetRandomMovies", requestConfig)
+                .get("https://movieapi.boehnern.de/api/Movie/GetRandomMovies", requestConfig)
                 .then((response) => {
                     this.randomMovies = response.data;
                 })

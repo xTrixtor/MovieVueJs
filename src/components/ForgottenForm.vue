@@ -40,7 +40,7 @@ export default {
       }
       try {
         await axios
-          .post(`http://localhost:5238/api/Reset/Password?username=${this.username}`)
+          .post(`https://myawesomewebapi.boehnern.de/api/Reset/Password?username=${this.username}`)
           .then((response) => {
             this.errorMsg = "";
             this.msg = response.data;
